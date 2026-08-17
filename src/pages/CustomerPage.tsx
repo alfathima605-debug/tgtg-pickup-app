@@ -485,6 +485,13 @@ export function CustomerPage() {
                       >
                         Contact support
                       </a>
+                      <a
+                        href="/privacy-policy.html"
+                        target="_blank"
+                        className="flex items-center justify-center gap-2 w-full mt-2 bg-transparent border border-[#E8E8E8] rounded-full py-3 text-sm font-bold text-[#6B7474] active:bg-[#F1F1F1] transition-colors"
+                      >
+                        Privacy Policy
+                      </a>
                     </div>
                   </motion.div>
                 )}
