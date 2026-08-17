@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #FFFFFF;
+  --color-text: #0C0C0C;
+  --color-body: #353535;
+  --color-muted: #6B7474;
+  --color-gray-btn: #F1F1F1;
+  --color-border: #E8E8E8;
+  --color-teal: #00766F;
+  --color-teal-dark: #005F58;
+  --color-mint: #72E0AE;
+  --color-mint-light: #D4F5E6;
+  --color-danger: #E53935;
+  --color-warning: #F59E0B;
+  --radius-card: 16px;
+  --radius-pill: 9999px;
+  --font-sans: 'Nunito', system-ui, -apple-system, sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: 'Nunito', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: 'Nunito', system-ui, -apple-system, sans-serif;
+  background: #FFFFFF;
+  color: #0C0C0C;
+}
+
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+#root {
+  min-height: 100dvh;
+}
+
+input, select, textarea, button {
+  font-family: 'Nunito', system-ui, -apple-system, sans-serif;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
