@@ -110,7 +110,7 @@ export function CustomerPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white w-full max-w-[430px] mx-auto">
+    <div className="min-h-screen bg-white w-full max-w-[430px] mx-auto flex flex-col">
       {/* ─── HEADER ─── */}
       <div className="flex items-center gap-3 px-4 pt-4 pb-2 sticky top-0 bg-white z-20">
         <button
@@ -122,42 +122,42 @@ export function CustomerPage() {
         <h1 className="font-extrabold text-lg text-[#0C0C0C]">Your order</h1>
       </div>
 
-      <div className="px-4 pb-16">
+      <div className="flex-1 px-4 pb-6">
         {/* ─── RESTAURANT HEADER ─── */}
-        <div className="pt-6 pb-2">
-          {/* Logo — bulletproof centered via flex wrapper */}
-          <div className="flex justify-center mb-4">
+        <div className="pt-4 pb-2">
+          {/* Logo — TGTG style: large centered */}
+          <div className="flex justify-center mb-3">
             {order.restaurantLogo ? (
               <img
                 src={order.restaurantLogo}
                 alt={order.restaurantName}
-                className="w-24 h-24 rounded-full object-cover border-2 border-[#E8E8E8] block"
+                className="w-[88px] h-[88px] rounded-full object-cover border-2 border-[#E8E8E8] block"
                 style={{ boxShadow: '0 4px 14px rgba(0,0,0,0.10)' }}
               />
             ) : (
               <div
-                className="w-24 h-24 rounded-full bg-[#00766F]/10 flex items-center justify-center border-2 border-[#E8E8E8]"
+                className="w-[88px] h-[88px] rounded-full bg-[#00766F]/10 flex items-center justify-center border-2 border-[#E8E8E8]"
                 style={{ boxShadow: '0 4px 14px rgba(0,0,0,0.06)' }}
               >
-                <ShoppingBag size={38} className="text-[#00766F]" />
+                <ShoppingBag size={36} className="text-[#00766F]" />
               </div>
             )}
           </div>
           <div className="text-center">
-          <h2 className="font-extrabold text-xl text-[#0C0C0C] leading-tight px-4 tracking-tight">
+          <h2 className="font-extrabold text-[19px] text-[#0C0C0C] leading-tight px-4 tracking-tight">
             {order.restaurantName}
           </h2>
-          <p className="text-[#6B7474] text-xs mt-1.5 flex items-center justify-center gap-1 font-medium px-6">
+          <p className="text-[#6B7474] text-xs mt-1 flex items-center justify-center gap-1 font-medium px-6">
             <MapPin size={11} className="shrink-0" />
             <span className="truncate">{order.restaurantAddress}</span>
           </p>
           {order.rating && (
-            <div className="flex items-center justify-center gap-1.5 mt-2.5">
+            <div className="flex items-center justify-center gap-1.5 mt-2">
               <div className="flex items-center gap-0.5">
                 {[1, 2, 3, 4, 5].map((s) => (
                   <Star
                     key={s}
-                    size={14}
+                    size={13}
                     className={
                       s <= Math.round(order.rating!)
                         ? 'fill-amber-400 text-amber-400'
@@ -166,11 +166,11 @@ export function CustomerPage() {
                   />
                 ))}
               </div>
-              <span className="text-xs font-bold text-[#0C0C0C]">{order.rating}</span>
-              <span className="text-xs text-[#6B7474] font-medium">({order.reviewCount})</span>
+              <span className="text-[11px] font-bold text-[#0C0C0C]">{order.rating}</span>
+              <span className="text-[11px] text-[#6B7474] font-medium">({order.reviewCount})</span>
             </div>
           )}
-          <div className="flex justify-center gap-3 mt-5">
+          <div className="flex justify-center gap-3 mt-4">
             <button
               onClick={() =>
                 window.open(
@@ -200,15 +200,15 @@ export function CustomerPage() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="mt-4"
+            className="mt-3 flex flex-col flex-1"
           >
             {/* Order details card */}
             <div
-              className="bg-white rounded-2xl border border-[#E8E8E8] p-4 mb-5"
+              className="bg-white rounded-2xl border border-[#E8E8E8] p-4 mb-4"
               style={{ boxShadow: '0 1px 4px rgba(0,0,0,0.04)' }}
             >
               {/* Bag name + total */}
-              <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-2.5 min-w-0">
                   <div className="w-10 h-10 rounded-xl bg-[#00766F]/10 flex items-center justify-center shrink-0">
                     <Package size={18} className="text-[#00766F]" />
@@ -223,53 +223,56 @@ export function CustomerPage() {
                 </span>
               </div>
 
-              <div className="grid grid-cols-2 gap-y-4 gap-x-3 mb-4">
+              <div className="grid grid-cols-2 gap-y-3 gap-x-3 mb-3">
                 <div>
                   <p className="text-[10px] font-bold text-[#6B7474] uppercase tracking-wider mb-1">Date</p>
-                  <p className="text-sm font-bold text-[#0C0C0C] leading-snug">{dateStr}</p>
+                  <p className="text-[13px] font-bold text-[#0C0C0C] leading-snug">{dateStr}</p>
                 </div>
                 <div>
                   <p className="text-[10px] font-bold text-[#6B7474] uppercase tracking-wider mb-1">Pickup window</p>
-                  <p className="text-sm font-bold text-[#0C0C0C] leading-snug">{windowStr}</p>
+                  <p className="text-[13px] font-bold text-[#0C0C0C] leading-snug">{windowStr}</p>
                 </div>
                 <div>
                   <p className="text-[10px] font-bold text-[#6B7474] uppercase tracking-wider mb-1">Surprise bag</p>
-                  <p className="text-sm font-bold text-[#0C0C0C] leading-snug">{order.quantity} x {order.orderName}</p>
+                  <p className="text-[13px] font-bold text-[#0C0C0C] leading-snug">{order.quantity} x {order.orderName}</p>
                 </div>
                 <div>
                   <p className="text-[10px] font-bold text-[#6B7474] uppercase tracking-wider mb-1">Total</p>
-                  <p className="text-sm font-extrabold text-[#00766F] leading-snug">{formatGBP(getTotal(order))}</p>
+                  <p className="text-[13px] font-extrabold text-[#00766F] leading-snug">{formatGBP(getTotal(order))}</p>
                 </div>
               </div>
 
               {order.surpriseBagContents && (
                 <div className="pt-3 border-t border-[#E8E8E8] mb-3">
                   <p className="text-[10px] font-bold text-[#6B7474] uppercase tracking-wider mb-1">What's in the bag</p>
-                  <p className="text-sm text-[#353535] font-medium leading-relaxed">{order.surpriseBagContents}</p>
+                  <p className="text-[13px] text-[#353535] font-medium leading-relaxed">{order.surpriseBagContents}</p>
                 </div>
               )}
 
               {order.packagingNote && (
                 <div className="pt-3 border-t border-[#E8E8E8]">
                   <p className="text-[10px] font-bold text-[#6B7474] uppercase tracking-wider mb-1">Packaging</p>
-                  <p className="text-xs text-[#6B7474] leading-relaxed font-medium">{order.packagingNote}</p>
+                  <p className="text-[12px] text-[#6B7474] leading-relaxed font-medium">{order.packagingNote}</p>
                 </div>
               )}
 
               {order.collectionNote && (
                 <div className="mt-3 bg-[#D4F5E6] rounded-xl p-3">
                   <p className="text-[10px] font-bold text-[#005F58] uppercase tracking-wider mb-1">Collection note</p>
-                  <p className="text-xs text-[#353535] font-medium leading-relaxed">{order.collectionNote}</p>
+                  <p className="text-[12px] text-[#353535] font-medium leading-relaxed">{order.collectionNote}</p>
                 </div>
               )}
             </div>
 
-            <p className="text-[#6B7474] text-sm font-medium text-center mb-4">
+            {/* Spacer pushes button to bottom */}
+            <div className="flex-1" />
+
+            <p className="text-[#6B7474] text-[13px] font-medium text-center mb-3">
               Tap the button when you arrive at the store
             </p>
             <button
               onClick={() => setStage('swipe')}
-              className="w-full bg-[#00766F] text-white font-extrabold py-4 rounded-full active:bg-[#005F58] transition-colors text-base shadow-lg shadow-[#00766F]/20"
+              className="w-full bg-[#00766F] text-white font-extrabold py-4 rounded-full active:bg-[#005F58] transition-colors text-[15px] shadow-lg shadow-[#00766F]/20"
             >
               Tap to collect
             </button>
@@ -277,14 +280,14 @@ export function CustomerPage() {
         )}
 
         {/* ═══════════════════════════════════════
-            STAGE: SWIPE — Swipe to collect
+            STAGE: SWIPE — Swipe to collect (TGTG style)
         ═══════════════════════════════════════ */}
         {stage === 'swipe' && (
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
-            className="mt-4"
+            className="mt-3 flex flex-col flex-1"
           >
             {/* Tabs */}
             <div className="flex border-b border-[#E8E8E8] mb-4">
@@ -303,45 +306,48 @@ export function CustomerPage() {
 
             {/* Order Detail Card */}
             <div
-              className="bg-white rounded-2xl border border-[#E8E8E8] p-4 mb-6"
+              className="bg-white rounded-2xl border border-[#E8E8E8] p-4 mb-4"
               style={{ boxShadow: '0 1px 4px rgba(0,0,0,0.04)' }}
             >
-              <div className="grid grid-cols-2 gap-y-4 gap-x-3 mb-4">
+              <div className="grid grid-cols-2 gap-y-3 gap-x-3 mb-3">
                 <div>
                   <p className="text-[10px] font-bold text-[#6B7474] uppercase tracking-wider mb-1">Date</p>
-                  <p className="text-sm font-bold text-[#0C0C0C] leading-snug">{dateStr}</p>
+                  <p className="text-[13px] font-bold text-[#0C0C0C] leading-snug">{dateStr}</p>
                 </div>
                 <div>
                   <p className="text-[10px] font-bold text-[#6B7474] uppercase tracking-wider mb-1">Pickup window</p>
-                  <p className="text-sm font-bold text-[#0C0C0C] leading-snug">{windowStr}</p>
+                  <p className="text-[13px] font-bold text-[#0C0C0C] leading-snug">{windowStr}</p>
                 </div>
                 <div>
                   <p className="text-[10px] font-bold text-[#6B7474] uppercase tracking-wider mb-1">Surprise bag</p>
-                  <p className="text-sm font-bold text-[#0C0C0C] leading-snug">{order.quantity} x {order.orderName}</p>
+                  <p className="text-[13px] font-bold text-[#0C0C0C] leading-snug">{order.quantity} x {order.orderName}</p>
                 </div>
                 <div>
                   <p className="text-[10px] font-bold text-[#6B7474] uppercase tracking-wider mb-1">Total</p>
-                  <p className="text-sm font-extrabold text-[#00766F] leading-snug">{formatGBP(getTotal(order))}</p>
+                  <p className="text-[13px] font-extrabold text-[#00766F] leading-snug">{formatGBP(getTotal(order))}</p>
                 </div>
               </div>
 
               {order.packagingNote && (
                 <div className="pt-3 border-t border-[#E8E8E8]">
                   <p className="text-[10px] font-bold text-[#6B7474] uppercase tracking-wider mb-1">Packaging</p>
-                  <p className="text-xs text-[#6B7474] leading-relaxed font-medium">{order.packagingNote}</p>
+                  <p className="text-[12px] text-[#6B7474] leading-relaxed font-medium">{order.packagingNote}</p>
                 </div>
               )}
 
               {order.collectionNote && (
                 <div className="mt-3 bg-[#D4F5E6] rounded-xl p-3">
                   <p className="text-[10px] font-bold text-[#005F58] uppercase tracking-wider mb-1">Collection note</p>
-                  <p className="text-xs text-[#353535] font-medium leading-relaxed">{order.collectionNote}</p>
+                  <p className="text-[12px] text-[#353535] font-medium leading-relaxed">{order.collectionNote}</p>
                 </div>
               )}
             </div>
 
-            {/* Swipe — pushed lower so it never overlaps the card */}
-            <div className="mt-16 pt-4">
+            {/* Spacer pushes swipe to bottom */}
+            <div className="flex-1" />
+
+            {/* Swipe — pinned to bottom like TGTG */}
+            <div className="pb-2">
               <SwipeToCollect onComplete={handleCollect} />
             </div>
           </motion.div>

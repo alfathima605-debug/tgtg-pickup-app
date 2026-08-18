@@ -527,6 +527,7 @@ function Field({ label, onChange, ...props }: { label: string; onChange: (v: str
 function LogoUpload({ value, onChange }: { value: string; onChange: (v: string) => void }) {
   const fileRef = useRef<HTMLInputElement>(null);
   const [preview, setPreview] = useState(value || '');
+  const [imgStatus, setImgStatus] = useState<'idle' | 'loading' | 'ok' | 'error'>('idle');
 
   useEffect(() => { setPreview(value || ''); }, [value]);
 
@@ -541,6 +542,7 @@ function LogoUpload({ value, onChange }: { value: string; onChange: (v: string) 
     reader.onload = () => {
       const result = reader.result as string;
       setPreview(result);
+      setImgStatus('ok');
       onChange(result);
     };
     reader.readAsDataURL(file);
@@ -548,29 +550,55 @@ function LogoUpload({ value, onChange }: { value: string; onChange: (v: string) 
 
   const handleUrl = (v: string) => {
     onChange(v);
+    if (!v.trim()) {
+      setPreview('');
+      setImgStatus('idle');
+      return;
+    }
     setPreview(v);
+    setImgStatus('loading');
   };
+
+  const handleImgLoad = () => setImgStatus('ok');
+  const handleImgError = () => setImgStatus('error');
 
   return (
     <div>
       <label className="block text-[11px] font-bold text-[#6B7474] uppercase tracking-wider mb-1.5">
         Restaurant logo
       </label>
-      <div className="flex items-center gap-4">
+      <div className="flex items-start gap-4">
+        {/* Preview box */}
         <button
           type="button"
           onClick={() => fileRef.current?.click()}
-          className="relative w-16 h-16 rounded-xl border-2 border-dashed border-[#E8E8E8] bg-[#F1F1F1] flex items-center justify-center overflow-hidden active:bg-[#E8E8E8] transition-colors shrink-0 group"
+          className="relative w-[72px] h-[72px] rounded-xl border-2 border-dashed border-[#E8E8E8] bg-[#F1F1F1] flex items-center justify-center overflow-hidden active:bg-[#E8E8E8] transition-colors shrink-0 group"
         >
           {preview ? (
             <>
-              <img src={preview} alt="Logo" className="w-full h-full object-cover" />
+              <img
+                src={preview}
+                alt="Logo"
+                className="w-full h-full object-cover"
+                onLoad={handleImgLoad}
+                onError={handleImgError}
+              />
+              {imgStatus === 'loading' && (
+                <div className="absolute inset-0 bg-white/70 flex items-center justify-center">
+                  <div className="w-5 h-5 border-2 border-[#00766F] border-t-transparent rounded-full animate-spin" />
+                </div>
+              )}
+              {imgStatus === 'error' && (
+                <div className="absolute inset-0 bg-red-50 flex items-center justify-center">
+                  <X size={20} className="text-red-400" />
+                </div>
+              )}
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                 <Camera size={16} className="text-white" />
               </div>
             </>
           ) : (
-            <Camera size={20} className="text-[#6B7474]" />
+            <Camera size={24} className="text-[#6B7474]" />
           )}
         </button>
         <input
@@ -584,10 +612,32 @@ function LogoUpload({ value, onChange }: { value: string; onChange: (v: string) 
           <input
             value={value}
             onChange={(e) => handleUrl(e.target.value)}
-            placeholder="Or paste image URL..."
+            placeholder="Paste image URL..."
             className="w-full bg-[#F1F1F1] border border-[#E8E8E8] rounded-xl px-4 py-3 text-sm text-[#0C0C0C] font-medium placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#00766F]/30"
           />
-          <p className="text-[10px] text-[#6B7474] mt-1.5 font-medium">Tap the icon to upload, or paste a URL</p>
+          <div className="mt-1.5 flex items-center gap-1.5">
+            {imgStatus === 'loading' && (
+              <>
+                <div className="w-3 h-3 border-2 border-[#00766F] border-t-transparent rounded-full animate-spin" />
+                <span className="text-[10px] text-[#6B7474] font-medium">Loading image...</span>
+              </>
+            )}
+            {imgStatus === 'ok' && (
+              <>
+                <Check size={12} className="text-[#00766F]" />
+                <span className="text-[10px] text-[#00766F] font-medium">Image loaded</span>
+              </>
+            )}
+            {imgStatus === 'error' && (
+              <>
+                <X size={12} className="text-red-400" />
+                <span className="text-[10px] text-red-400 font-medium">Invalid image URL</span>
+              </>
+            )}
+            {imgStatus === 'idle' && (
+              <span className="text-[10px] text-[#6B7474] font-medium">Tap icon to upload, or paste a URL</span>
+            )}
+          </div>
         </div>
       </div>
     </div>

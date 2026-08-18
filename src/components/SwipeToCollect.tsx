@@ -42,7 +42,8 @@ export function SwipeToCollect({ onComplete }: Props) {
   return (
     <div
       ref={trackRef}
-      className="relative h-[52px] bg-[#00766F] rounded-full overflow-hidden select-none touch-pan-y"
+      className="relative h-[56px] bg-[#00766F] rounded-full overflow-hidden select-none touch-pan-y"
+      style={{ boxShadow: '0 4px 12px rgba(0,118,111,0.3)' }}
     >
       <motion.div
         className="absolute inset-0 bg-[#005F58] rounded-full origin-left"
@@ -52,14 +53,14 @@ export function SwipeToCollect({ onComplete }: Props) {
         className="absolute inset-0 flex items-center justify-center pointer-events-none"
         style={{ opacity: labelOpacity }}
       >
-        <span className="text-white font-extrabold text-sm tracking-wide">Swipe to collect</span>
+        <span className="text-white font-extrabold text-[15px] tracking-wide">Swipe to collect</span>
       </motion.div>
       <motion.div
         className="absolute inset-0 flex items-center justify-center pointer-events-none"
         style={{ opacity: checkOpacity }}
       >
-        <span className="text-white font-extrabold text-sm flex items-center gap-2">
-          <Check size={18} strokeWidth={3} /> Collected!
+        <span className="text-white font-extrabold text-[15px] flex items-center gap-2">
+          <Check size={20} strokeWidth={3} /> Collected!
         </span>
       </motion.div>
       <motion.div
@@ -69,9 +70,9 @@ export function SwipeToCollect({ onComplete }: Props) {
         dragMomentum={false}
         onDragEnd={handleDragEnd}
         style={{ x }}
-        className="absolute top-[4px] left-[4px] w-[44px] h-[44px] bg-white rounded-full flex items-center justify-center shadow-md z-10 cursor-grab active:cursor-grabbing touch-none"
+        className="absolute top-[4px] left-[4px] w-[48px] h-[48px] bg-white rounded-full flex items-center justify-center shadow-lg z-10 cursor-grab active:cursor-grabbing touch-none"
       >
-        <ArrowRight size={18} className="text-[#00766F]" />
+        <ArrowRight size={20} className="text-[#00766F]" />
       </motion.div>
     </div>
   );
